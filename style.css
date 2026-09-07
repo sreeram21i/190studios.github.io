@@ -1,0 +1,466 @@
+/* --- BASE VARIABLES --- */
+:root {
+    --bg: #ffffff;
+    --bg-light: #f4f4f4;
+    --bg-dark: #0A0A0A;
+    --text-main: #1a1a1a;
+    --text-muted: #150404;
+    --accent: #d4af37;
+    --transition-fast: 0.3s ease;
+    --transition-slow: 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'poppinss', Arial, sans-serif; color: var(--text-main); background: var(--bg); overflow-x: hidden; scroll-behavior: smooth; }
+body.no-scroll { overflow: hidden; height: 100vh; } 
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+.text-white { color: #ffffff !important; }
+.bg-dark { background-color: var(--bg-dark); }
+.bg-light { background-color: var(--bg-light); }
+.text-center { text-align: center; }
+.relative { position: relative; }
+.z-index-1 { position: relative; z-index: 1; }
+
+/* --- TYPOGRAPHY --- */
+h1, h2, h3, h4 { text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+.huge-title { font-size: clamp(4rem, 12vw, 12rem); line-height: 1; letter-spacing: -3px; }
+.sub-title { font-size: clamp(1.2rem, 4vw, 3rem); letter-spacing: 8px; margin-bottom: 1rem; }
+.name-heading { font-size: 1.5rem; margin-bottom: 1.5rem; letter-spacing: 4px; color: var(--accent); }
+
+/* --- SECTION HEADING LINE ANIMATION --- */
+.section-heading { font-size: 2.5rem; margin-bottom: 3rem; display: inline-block; position: relative; padding-bottom: 10px; }
+.section-heading::after { 
+    content: ''; position: absolute; left: 0; bottom: 0; width:100%; height: 2px; 
+    /* background: var(--text-main);  */
+    background: goldenrod;
+    transform: scaleX(0); 
+    transform-origin: left;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.3s; 
+}
+.bg-dark .section-heading::after { background: #ffffff; }
+.text-center .section-heading::after { left: 50%; transform: translateX(-50%) scaleX(0); transform-origin: center; }
+.section-heading.is-visible::after { transform: scaleX(1); }
+.text-center .section-heading.is-visible::after { transform: translateX(-50%) scaleX(1); }
+
+/* --- HEADER / NAV --- */
+#main-header { position: fixed; top: 0; width: 100%; z-index: 100; padding: 2rem 5%; transition: all var(--transition-fast); }
+#main-header.scrolled { background: rgba(255, 255, 255, 0.98); padding: 1rem 5%; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
+.header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
+.logo { font-size: 1.5rem; font-weight: bold; color: var(--text-main); transition: color var(--transition-fast); }
+.logo span { font-weight: 300; }
+#main-header:not(.scrolled) .logo, #main-header:not(.scrolled) .desktop-nav a { color: #ffffff; }
+
+.desktop-nav ul { display: flex; gap: 2.5rem; }
+.desktop-nav a { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; position: relative; }
+.desktop-nav a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 2px; background: var(--accent); transition: width var(--transition-fast); }
+.desktop-nav a.active::after, .desktop-nav a:hover::after { width: 100%; }
+
+.mobile-menu-btn { display: none; background: transparent; border: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 101; }
+.mobile-menu-btn .line { width: 30px; height: 2px; background: #ffffff; transition: 0.3s; }
+#main-header.scrolled .mobile-menu-btn .line { background: var(--text-main); }
+.mobile-nav { position: fixed; inset: 0; background: var(--bg-dark); color: white; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity var(--transition-fast); z-index: 99; }
+.mobile-nav.open { opacity: 1; pointer-events: all; }
+.mobile-nav ul { display: flex; flex-direction: column; gap: 2.5rem; text-align: center; font-size: 1.5rem; letter-spacing: 2px; }
+
+/* --- HERO BANNER --- */
+.hero-section { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; background-size: cover; background-position: center; background-attachment: fixed; color: #ffffff; position: relative; }
+.scroll-down { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; z-index: 10; }
+.scroll-arrow { font-size: 1.2rem; animation: floatArrow 2s infinite ease-in-out; }
+@keyframes floatArrow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+
+/* --- SCROLL DECORATIVE LINE ANIMATION SYSTEM (DYNAMIC SCRUBBING) --- */
+/* The CSS transition is removed so JS can control the scale exactly via --line-scale */
+.draw-line-h { 
+    position: absolute; background: rgba(0,0,0,0.15); 
+    height: 1px; width: 100%; 
+    transform: scaleX(var(--line-scale, 0)); 
+}
+.draw-line-v { 
+    position: absolute; background: rgba(0,0,0,0.15); 
+    width: 1px; height: 100%; 
+    transform: scaleY(var(--line-scale, 0)); 
+}
+.bg-dark .draw-line-h, .bg-dark .draw-line-v, .hero-section .draw-line-v { background: rgba(255,255,255,0.2); }
+
+.top-border { top: 0; left: 0; transform-origin: left; }
+.bottom-border { bottom: 0; right: 0; transform-origin: right; }
+.center-line { top: 0; left: 50%; transform: translateX(-50%) scaleY(var(--line-scale, 0)); transform-origin: top; }
+.top-center { top: 0; left: 50%; transform: translateX(-50%) scaleY(var(--line-scale, 0)); transform-origin: top; }
+.top-left { top: 0; left: 5%; transform-origin: top; }
+.bottom-right { bottom: 0; right: 5%; transform-origin: bottom; }
+
+/* --- LAYOUTS --- */
+.section-padding { padding: 8rem 0; }
+.container { width: 90%; max-width: 1200px; margin: 0 auto; }
+.text-content p { margin-bottom: 1.5rem; font-size: 1.15rem; line-height: 1.8; color: var(--text-muted); }
+.bg-dark .text-content p { color: #aaaaaa; }
+.grid-2-col { display: grid; grid-template-columns:2fr 1fr; gap: 4rem; align-items: center; }
+
+/* --- SERVICES CARDS --- */
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.service-card { border: 1px solid rgba(255,255,255,0.1); padding: 3rem 2rem; text-align: center; position: relative; overflow: hidden; cursor: default; transition: background 0.3s; background: rgba(0,0,0,0.3); }
+.hover-line { position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+.service-card:hover { background: rgba(255,255,255,0.05); }
+.service-card:hover .hover-line { transform: scaleX(1); }
+
+/* --- IMAGE HOVER ANIMATIONS --- */
+.image-wrapper { overflow: hidden; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.cinematic-img { width: 100%; height: auto; display: block; transition: transform var(--transition-slow); }
+.image-wrapper:hover .cinematic-img { transform: scale(1.05); }
+
+/* --- project --- */
+.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+.project-item { position: relative; overflow: hidden; aspect-ratio: 4/5; cursor: pointer; border-radius: 4px; }
+.project-img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-slow); }
+.project-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; color: white; opacity: 0; transition: opacity var(--transition-fast); }
+.project-overlay h4 { transform: translateY(15px); transition: transform var(--transition-fast); margin-bottom: 10px;}
+.view-btn { display: flex; align-items: center; opacity: 0; transform: translateY(15px); transition: all var(--transition-fast); color: var(--accent);padding-bottom:10px; }
+.view-line { width: 0px; height: 2px; background: var(--accent); transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1); margin-right: 5px; }
+
+.project-item:hover .project-img { transform: scale(1.08); }
+.project-item:hover .project-overlay { opacity: 1; }
+.project-item:hover .project-overlay h4 { transform: translateY(0); }
+.project-item:hover .view-btn { opacity: 1; transform: translateY(0); }
+.project-item:hover .view-line { width: 100px; }
+
+/* --- SCROLL DECORATIVE LINE ANIMATION SYSTEM --- */
+.draw-line-h { 
+    position: absolute; 
+    background: rgba(0, 0, 0, 0.3); 
+    height: 1px; 
+    width: 100%; 
+    transform: scaleX(0); 
+    will-change: transform;
+    /* This adds the smooth animation on page load AND smooths the scroll scrubbing */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+}
+.draw-line-v { 
+    position: absolute; 
+    background: rgba(0, 0, 0, 0.3); 
+    width: 1px; 
+    height: 100%; 
+    transform: scaleY(0); 
+    will-change: transform;
+    /* This adds the smooth animation on page load AND smooths the scroll scrubbing */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+}
+.bg-dark .draw-line-h, .bg-dark .draw-line-v, .hero-section .draw-line-v { 
+    background: rgba(255, 255, 255, 0.4); 
+}
+
+/* Transform Origins (Anchors) */
+.top-border { top: 0; left: 0; transform-origin: left; }
+.bottom-border { bottom: 0; right: 0; transform-origin: right; }
+.center-line, .top-center { top: 0; left: 50%; transform: translateX(-50%) scaleY(0); transform-origin: top; }
+.top-left { top: 0; left: 5%; transform-origin: top; }
+.bottom-right { bottom: 0; right: 5%; transform-origin: bottom; }
+
+/* Transform Origins (Anchors for the drawing effect) */
+.top-border { top: 0; left: 0; transform-origin: left; }
+.bottom-border { bottom: 0; right: 0; transform-origin: right; }
+.center-line { top: 0; left: 50%; transform: translateX(-50%) scaleY(var(--line-scale, 0)); transform-origin: top; }
+.top-center { top: 0; left: 50%; transform: translateX(-50%) scaleY(var(--line-scale, 0)); transform-origin: top; }
+.top-left { top: 0; left: 5%; transform-origin: top; }
+.bottom-right { bottom: 0; right: 5%; transform-origin: bottom; }
+
+@media (max-width: 900px) {
+    .desktop-nav { display: none; }
+    .mobile-menu-btn { display: flex; }
+    .grid-2-col { grid-template-columns: 1fr; }
+    #main-header:not(.scrolled) .mobile-menu-btn .line { background: #ffffff; }
+    .section-padding { padding: 5rem 0; }
+}
+/* =========================================
+   OUR VISION SECTION (SPLIT LAYOUT)
+   ========================================= */
+
+.vision-section {
+    background-color: #ffffff; /* Deep dark background matching the image */
+    padding: 0; /* Remove default section padding for full-bleed image */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.vision-container {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    align-items: center;
+}
+
+/* --- Left Side: Image --- */
+.vision-image-wrapper {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.vision-image-bg {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Fallback color if image doesn't load */
+    background-color: #ffffff; 
+}
+
+/* Seamless blend into the dark background */
+.image-gradient-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+    z-index: 2;
+}
+
+/* The slanting red line */
+.red-line-anim {
+    position: absolute;
+    top: 50%;
+    left: -10vw; /* Start outside the screen */
+    width: 0;
+    height: 2px;
+    background-color: #ff0000;
+    transform: rotate(-3deg);
+    transform-origin: left center;
+    z-index: 3;
+    transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.5s;
+}
+
+.vision-image-wrapper.show .red-line-anim {
+    width: 120%; /* Draws across the image */
+}
+
+/* --- Right Side: Text Content --- */
+.vision-content {
+    width: 50%;
+    padding: 0 8% 0 4%;
+    /* color: #cccccc; Light grey body text */
+    z-index: 4;
+}
+
+.vision-title {
+    font-size: 5rem;
+      text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    line-height: 1;
+}
+
+/* .vision-content p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin: 0;
+   
+    font-weight: 300;
+} */
+
+/* Golden Arrow Line */
+.golden-arrow-anim {
+    position: relative;
+    margin-top: 50px;
+    height: 2px;
+    background: linear-gradient(to right, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 1));
+    width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    transition: width 1.5s ease-in-out 0.8s;
+}
+
+.golden-arrow-anim .arrow-head {
+    color: #d4af37; /* Accent gold */
+    font-size: 14px;
+    position: absolute;
+    right: -10px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in 2s; /* Fades in after line draws */
+}
+
+.vision-content.show .golden-arrow-anim {
+    width: 80%; /* Width of the line relative to content */
+}
+
+.vision-content.show .golden-arrow-anim .arrow-head {
+    opacity: 1;
+}
+
+/* Delay utility for staggered animations */
+.delay-200 {
+    transition-delay: 0.2s;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 992px) {
+    .vision-container {
+        flex-direction: column;
+        height: auto;
+    }
+    .vision-image-wrapper {
+        width: 100%;
+        height: 50vh;
+    }
+    .image-gradient-overlay {
+        width: 100%;
+        height: 40%;
+        top: auto;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(5, 5, 8, 0) 0%, rgba(5, 5, 8, 1) 100%);
+    }
+    .vision-content {
+        width: 100%;
+        padding: 40px 20px;
+    }
+    .vision-title {
+        font-size: 3.5rem;
+    }
+}
+/* =========================================
+   CUSTOM GALLERY GRID & LIGHTBOX
+   ========================================= */
+
+.gallery-section {
+    background-color: #f2f2f2; /* Light grey background from the design */
+    padding: 80px 20px;
+}
+
+.gallery-title {
+    text-align: center;
+    color: #c9302c; /* The exact red from the design */
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+.gallery-grid-3x2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-img-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Keeps all images uniformly sized */
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.gallery-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.gallery-img-wrapper:hover .gallery-thumb {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Lightbox Styling */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-content-wrapper {
+    max-width: 80%;
+    max-height: 80vh;
+}
+
+#lightbox-img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 8px;
+    object-fit: contain;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    animation: zoomIn 0.3s ease;
+}
+
+/* Lightbox Controls */
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.lightbox-close:hover { color: #c9302c; }
+
+.lightbox-prev, .lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    font-size: 30px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background 0.3s;
+    border-radius: 50%;
+}
+
+.lightbox-prev:hover, .lightbox-next:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.lightbox-prev { left: 5%; }
+.lightbox-next { right: 5%; }
+
+@keyframes zoomIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive Grid */
+@media (max-width: 992px) {
+    .gallery-grid-3x2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+    .gallery-grid-3x2 { grid-template-columns: 1fr; }
+    .lightbox-prev { left: 10px; }
+    .lightbox-next { right: 10px; }
+    .lightbox-content-wrapper { max-width: 95%; }
+}
+
+/* .head-center{
+    text-align: center;
+} */
+
