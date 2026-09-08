@@ -36,7 +36,7 @@
     <!-- Navigation -->
     <header id="main-header">
         <div class="header-container">
-            <div class="logo"> <img src="/assets/190-black.png" alt="190 Studios Logo" class="hero-logo" style="max-width: 10%; height: auto;"></div>
+            <div class="logo"> <a href="#home"><img src="/assets/190-black.png" alt="190 Studios Logo" class="hero-logo" style="max-width: 10%; height: auto;"></a></div>
             <nav class="desktop-nav">
                 <ul>
                     <li><a href="#home" class="active">Home</a></li>
@@ -78,7 +78,7 @@
             
             <div class="hero-content reveal-up">
                 <!-- Image replacing the 190 STUDIOS text -->
-                <img src="/assets/190.png" alt="190 Studios Logo" class="hero-logo" style="max-width:50%; height: auto; display: block; margin: 0 auto;">
+                <img src="/assets/190.png" alt="190 Studios Logo" class="hero-img">
                 
                 <!-- <p class="tagline">Stories With a Pulse</p> -->
             </div>
@@ -93,7 +93,7 @@
         <!-- About Section -->
         <section id="about" class="section-padding relative">
             <div class="draw-line-h top-border"></div>
-            <div class="container">
+            <div class="container text-center">
                 <h2 class="section-heading reveal-up">ABOUT US</h2>
                 <div class="text-content reveal-stagger">
                     
@@ -108,7 +108,7 @@
         <!-- Services Section -->
         <section id="services" class="section-padding bg-dark text-white relative">
             <!-- <div class="draw-line-v"></div> -->
-            <div class="container relative z-index-1">
+            <div class="container relative z-index-1 text-center">
                 <h2 class="section-heading reveal-up">WHAT WE DO</h2>
                 <div class="services-grid reveal-stagger">
                     <div class="service-card"><h3>FILM & SHORT FILMS</h3><div class="hover-line"></div></div>
@@ -180,7 +180,7 @@
 
         <!-- Projects (6 Images with Line Arrow Animation) -->
         <section id="work" class="section-padding relative">
-            <div class="container head-center">
+            <div class="container head-center text-center">
                 <h2 class="section-heading reveal-up">PROJECTS</h2>
                 <div class="project-grid reveal-stagger">
                     <!-- Item 1 -->
@@ -302,7 +302,7 @@
         <!-- Commitment Section -->
         <section id="commitment" class="section-padding bg-dark text-white relative">
             <div class="draw-line-h top-border"></div>
-            <div class="container">
+            <div class="container text-center">
                 <h2 class="section-heading reveal-up">OUR COMMITMENT</h2>
                 <div class="text-content reveal-stagger">
                     <p>At 190 Studios, we believe successful production is built on trust, communication, accountability, and collaboration.
@@ -314,11 +314,86 @@
             </div>
         </section>
 
+        <!-- Stylish Contact Section -->
+        <section id="contact" class="section-padding relative">
+            <div class="container text-center">
+                <h2 class="section-heading reveal-up text-center">GET IN TOUCH</h2>
+                <div class="contact-grid reveal-stagger">
+                    
+                    <!-- Address Card -->
+                    <!-- <div class="contact-card">
+                        <div class="contact-icon">&#map-marker-alt; 📍</div>
+                        <h4>VISIT US</h4>
+                        <p>TC 52,936, KJ SQUARE<br>KAIMANAM PO, TRIVANDRUM - 695040</p>
+                    </div> -->
+                         <div class="contact-grid reveal-stagger">
+    
+    <!-- Address Card -->
+    <a href="PASTE_YOUR_GOOGLE_MAPS_LINK_HERE" target="_blank" rel="noopener noreferrer" class="contact-card">
+        <div class="contact-icon">📍</div>
+        <h4>VISIT US</h4>
+        <p>TC 52,936, KJ SQUARE<br>KAIMANAM PO, TRIVANDRUM - 695040</p>
+    </a>
+    
+    <!-- Phone Card -->
+    <a href="tel:+916282856401" class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h4>CALL US</h4>
+        <p>+91 6282856401</p>
+    </a>
+    
+    <!-- Email Card -->
+    <a href="mailto:190.studios.active@gmail.com" class="contact-card">
+        <div class="contact-icon">✉️</div>
+        <h4>EMAIL US</h4>
+        <p>190.studios.active@gmail.com</p>
+    </a>
+
+</div>
+
+                </div>
+            </div>
+        </section>
+
+   
+
     </main>
 
+         <footer class="main-footer bg-dark text-white">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Footer Logo -->
+                <div class="footer-logo">
+                    <!-- Added filter:invert to make the black logo white on the dark footer -->
+                    <a href="#home">
+                        <img src="/assets/190-black.png" alt="190 Studios Logo" style="max-width: 120px; filter: invert(1);">
+                    </a>
+                </div>
+                
+                <!-- Footer Navigation -->
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#vision">Vision</a></li>
+                        <li><a href="#founder">Founder</a></li>
+                        <li><a href="#work">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- Copyright & Bottom Line -->
+            <div class="footer-bottom">
+                <p>&copy; 2026 . All Rights Reserved. 190Studios | Stories With a Pulse.</p>
+            </div>
+        </div>
+    </footer>
+
     <!-- Footer -->
-    <footer id="contact" class="footer-section section-padding text-center relative">
-        <!-- <div class="draw-line-v top-center"></div> -->
+    <!-- <footer id="contact" class="footer-section section-padding text-center relative">
+       
         <div class="container reveal-up">
             <h2 class="section-heading">CONTACT US</h2>
             <div class="contact-info" style="margin-top: 2rem;">
@@ -328,10 +403,9 @@
                 <br>
                 <p>OUR EMAIL:<br><a href="mailto:190.studios.active@gmail.com">190.studios.active@gmail.com</a></p>
             </div>
-            <!-- <h3 class="thank-you" style="margin-top: 4rem; font-size: 2rem; letter-spacing: 5px;">THANK YOU</h3> -->
-            <!-- <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Copyright</p> -->
+            
         </div>
-    </footer>
+    </footer> -->
 
     
 

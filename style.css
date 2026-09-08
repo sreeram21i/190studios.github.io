@@ -29,6 +29,16 @@ h1, h2, h3, h4 { text-transform: uppercase; letter-spacing: 2px; font-weight: 70
 .sub-title { font-size: clamp(1.2rem, 4vw, 3rem); letter-spacing: 8px; margin-bottom: 1rem; }
 .name-heading { font-size: 1.5rem; margin-bottom: 1.5rem; letter-spacing: 4px; color: var(--accent); }
 
+/* Default layout for desktop */
+.hero-img {
+    max-width: 50%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+
+
 /* --- SECTION HEADING LINE ANIMATION --- */
 .section-heading { font-size: 2.5rem; margin-bottom: 3rem; display: inline-block; position: relative; padding-bottom: 10px; }
 .section-heading::after { 
@@ -62,7 +72,7 @@ h1, h2, h3, h4 { text-transform: uppercase; letter-spacing: 2px; font-weight: 70
 #main-header.scrolled .mobile-menu-btn .line { background: var(--text-main); }
 .mobile-nav { position: fixed; inset: 0; background: var(--bg-dark); color: white; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity var(--transition-fast); z-index: 99; }
 .mobile-nav.open { opacity: 1; pointer-events: all; }
-.mobile-nav ul { display: flex; flex-direction: column; gap: 2.5rem; text-align: center; font-size: 1.5rem; letter-spacing: 2px; }
+.mobile-nav ul { display: flex; flex-direction: column; gap:1.5rem; text-align: center; font-size: 1.5rem; letter-spacing: 2px; }
 
 /* --- HERO BANNER --- */
 .hero-section { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; background-size: cover; background-position: center; background-attachment: fixed; color: #ffffff; position: relative; }
@@ -464,3 +474,241 @@ h1, h2, h3, h4 { text-transform: uppercase; letter-spacing: 2px; font-weight: 70
     text-align: center;
 } */
 
+/* Responsive layout for mobile devices */
+@media (max-width: 768px) {
+    .hero-img {
+        max-width: 100%;
+        padding: 0 20px; /* Optional: adds a little breathing room on the edges */
+    }
+    .section-heading {
+    font-size: 24px;
+    margin-bottom: 1rem;
+    }
+    .text-content p
+ {
+       font-size: 1rem;
+}
+.service-card {
+  
+    padding: 1rem 2rem;
+}
+    .section-padding
+ {
+        padding: 2rem 0;
+    }
+    .grid-2-col > *:nth-child(1) {
+        order: 2;
+    }
+
+    /* Move the second item to the first position */
+    .grid-2-col > *:nth-child(2) {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    #founder .grid-2-col {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* "Unwraps" the content visually so children can be ordered alongside the image */
+    #founder .content-wrapper {
+        display: contents; 
+    }
+
+    /* Assign the visual order */
+    #founder .section-heading { 
+        order: 1; 
+        margin-bottom: 1.5rem; 
+    }
+    
+    #founder .image-wrapper { 
+        order: 2; 
+        margin-bottom: 1.5rem; 
+    }
+    
+    #founder .name-heading { 
+        order: 3; 
+        margin-bottom: 1rem; 
+    }
+    
+    #founder .text-content { 
+        order: 4; 
+    }
+    #founder .image-wrapper { 
+        order: 2; 
+        max-width: 70%; /* Adjust this percentage to make it smaller or larger */
+        margin: 0 auto 1.5rem auto; /* Centers the image horizontally */
+    }
+    .grid-2-col {
+    gap: 0rem;
+    }
+        .vision-content ,.text-content{
+          text-align: center;
+    }
+    .service-card{
+        font-size: 14px;
+    }
+    .hero-section {
+    height: 70vh;
+    }
+      .contact-card {
+    padding: 1rem !important;
+    }
+    .contact-grid {
+    margin-top: 0 !important;
+}
+}
+.project-item {
+    text-align: left;
+}
+/* =========================================
+   CONTACT SECTION (CARD GRID)
+   ========================================= */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    /* margin-top: 3rem; */
+}
+
+.contact-card {
+    background: #ffffff;
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border-top: 4px solid transparent;
+}
+
+.contact-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--bg-dark); /* Theme Red */
+}
+
+.contact-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+}
+
+.contact-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    color: #1a1a1a;
+}
+
+.contact-card p, .contact-card a {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.6;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-card a:hover {
+    color: #c9302c;
+}
+
+/* =========================================
+   NEW FOOTER SECTION
+   ========================================= */
+.main-footer {
+    padding:2rem 0 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.footer-nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 0;
+}
+
+.footer-nav a {
+    color: #cccccc;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.footer-nav a:hover {
+    color: #ffffff;
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 2rem;
+    color: #888888;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+/* Footer Responsive Layout */
+@media (min-width: 992px) {
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+  
+}
+.map-link {
+    text-decoration: none; /* Removes the underline */
+    display: block; /* Makes the whole block clickable */
+}
+
+.map-link p {
+    color: #555;
+    transition: color 0.3s ease;
+}
+
+.map-link:hover p {
+    color: #c9302c; /* Changes to your red theme color on hover */
+}
+
+/* Update your existing contact-card class */
+.contact-card {
+    display: block; /* Required since <a> is an inline element by default */
+    text-decoration: none; /* Removes the default link underline */
+    color: inherit; /* Prevents the text from turning link-blue */
+    background: #ffffff;
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border-top: 4px solid transparent;
+}
+
+/* Ensure the paragraph text still gets the hover color effect */
+.contact-card p {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.6;
+    transition: color 0.3s ease;
+}
+
+.contact-card:hover p {
+    color: goldenrod; /* Theme Red */
+}
